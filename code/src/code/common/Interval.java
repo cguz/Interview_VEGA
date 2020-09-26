@@ -1,5 +1,7 @@
 package code.common;
 
+import java.time.LocalTime;
+
 /**
  * @author Cesar Augusto Guzman Alvarez
  * @date Sep 25, 2020
@@ -10,33 +12,39 @@ public class Interval {
 	/**
 	 * start time of the interval
 	 */
-	private int start;
+	private LocalTime start;
 	
 	
 	/**
 	 * end time of the interval
 	 */
-	private int end;
+	private LocalTime end;
 	
 	
 	
 	/**
 	 * Constructor to initialize 
 	 * 
-	 * @param start
-	 * @param end
+	 * @param start Integer start time of the transmission
+	 * @param end Integer end time of the transmission
 	 */
-	public Interval(int start, int end) {
+	public Interval(LocalTime start, LocalTime end) {
 		this.start = start;
 		this.end = end;
 	}
 
 	
-	public int getEnd() {
+	/**
+	 * @return the end time of the transmission
+	 */
+	public LocalTime getEnd() {
 		return end;
 	}
 	
-	public int getStart() {
+	/**
+	 * @return the start time of the transmission
+	 */
+	public LocalTime getStart() {
 		return start;
 	}
 }

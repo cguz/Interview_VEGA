@@ -21,8 +21,8 @@ public class Station {
 	
 	
 	/**
-	 * @param name human name of the satellite or ground station
-	 * @param bandwidth 
+	 * @param name String name of the satellite or ground station
+	 * @param bandwidth Integer bandwidth of the satellite or station
 	 */
 	public Station(String name, Integer bandwidth) {
 		this.name = name;
