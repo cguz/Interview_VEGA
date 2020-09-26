@@ -32,19 +32,32 @@ public class Interval {
 		this.start = start;
 		this.end = end;
 	}
-
 	
 	/**
+	 * Function that retrieves the start time
+	 * 
+	 * @return the start time of the transmission
+	 */
+	public LocalTime getStart() {
+		return start;
+	}
+	
+	/**
+	 * Function that retrieves the end time
+	 * 
 	 * @return the end time of the transmission
 	 */
 	public LocalTime getEnd() {
 		return end;
 	}
-	
+
 	/**
-	 * @return the start time of the transmission
+	 * Function that detects if the time overlaps
+	 * 
+	 * @param time LocaTime 
+	 * @return True if the time overlaps. Otherwise false.
 	 */
-	public LocalTime getStart() {
-		return start;
+	public boolean overlap(LocalTime time) {
+		return (start.isBefore(time) || start.equals(time)) && (time.isBefore(end) || time.equals(end));
 	}
 }

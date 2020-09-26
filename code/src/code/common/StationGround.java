@@ -7,6 +7,12 @@ package code.common;
  */
 public class StationGround extends Station {
 
+	
+	/**
+	 * Indicate if the ground station support the bandwidth
+	 */
+	private boolean supportBandwidth;
+
 	/**
 	 * Constructor 
 	 * 
@@ -14,6 +20,25 @@ public class StationGround extends Station {
 	 */
 	public StationGround(Integer bandwidth) {
 		super("Station Ground", bandwidth);
+		
+		supportBandwidth = true;
 	}
 
+	/**
+	 * Function that returns if the satellite support the total bandwidth of the pass schedule
+	 * @return true if it supports the total bandwidth, false otherwise
+	 */
+	public boolean getSupportBandwidth() {
+		return supportBandwidth;
+	}
+	
+	/**
+	 * Function to check if the ground station has the bandwidth
+	 * to support communication
+	 * 
+	 * @return true has the bandwidth to support the communication, false otherwise
+	 */
+	public void setSupportBandwidth(boolean support) {
+		supportBandwidth = support;
+	}
 }

@@ -1,5 +1,10 @@
 package code.common.enumerate;
 
+/**
+ * @author Cesar Augusto Guzman Alvarez
+ * @date Sep 26, 2020
+ *
+ */
 public enum WYSPACE {
 	
 	/**

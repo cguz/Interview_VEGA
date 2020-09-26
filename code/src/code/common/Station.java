@@ -1,5 +1,7 @@
 package code.common;
 
+import java.time.LocalTime;
+
 /**
  * @author Cesar Augusto Guzman Alvarez
  * @date Sep 25, 2020

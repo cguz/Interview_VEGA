@@ -24,6 +24,7 @@ public abstract class WYSpaceAbstract implements WYSpaceI {
 	// delimiter of the file
 	private final String DELIMITER = ",";
 	
+	
 	/**
 	 * Pass schedule configuration file
 	 */
@@ -52,34 +53,65 @@ public abstract class WYSpaceAbstract implements WYSpaceI {
 		// read the file pass schedule
 		readFile(fileName);
 		
-		
 		// declare a list of intervals as empty
 		List<LocalTime> periodTotalDownlinkMaximum = new ArrayList<LocalTime>();
 
-		// maximum total band
-		// maxBand = 0
+		// maximum total bandwidth
+		int maxTotalBandwidth = 0;
 
 		// for each possible time in the interval
 		// for time 00:00 to 00:00 (24:00) increased by 30:
+		LocalTime end = LocalTime.parse("23:30");
+		for (LocalTime start = LocalTime.parse("00:00");
+			start.isBefore(end); 
+			start = start.plusMinutes(30)) {
 		    
 		    // calculate the total bandwidth occupied by the satellites in the given time
-		    // totalBandwidth = 0
+		    int totalBandwidth = 0;
+			
 			// for each satellite in pass schedule:
-				// if satellite.inPass(time) :
+		    for (Station satellite : satellites) {
+				
+		    	// if satellite.overlap(time) :
+		    	if (((Satellite)satellite).overlap(start)) {
+		    		
 		            // totalBandwidth+= satellite.getBandwidth()
-
+		    		totalBandwidth+=satellite.getBandwidth();
+		    	}
+		    }
+		    
 		    // whether the total bandwidth is higher than the support by the ground station
-		    // if totalBandwidth <= stationGround.getBandwidth():
+		    if (totalBandwidth <= stationGround.getBandwidth()) {
 
 		        // keep the maximum total bandwidth 
-		        // if totalBandwidth > maxBand :
-					// periodTotalDownlinkMaximum.clear() 
-		        // if totalBandwidth >= maxBand :
-		            // maxBand = totalBandwidth
+		    	if (totalBandwidth > maxTotalBandwidth)
+		    		periodTotalDownlinkMaximum.clear();
+		        
+		    	// if totalBandwidth >= maxBand :
+		    	if (totalBandwidth <= maxTotalBandwidth) {
+		            
+		    		// maxBand = totalBandwidth
+		    		maxTotalBandwidth = totalBandwidth;
+		    		
 		            // periodTotalDownlinkMaximum.add(time);
+		    		periodTotalDownlinkMaximum.add(start);
+		    		
+		    	}
+		    }
+		}
 		
 		return null; // periodTotalDownlinkMaximum;
 		
+	}
+	
+	/**
+	 * Function to check if the ground station has the bandwidth
+	 * to support communication
+	 * 
+	 * @return true has the bandwidth to support the communication, false otherwise
+	 */
+	public boolean supportBandwidth() {
+		return ((StationGround)stationGround).getSupportBandwidth();
 	}
 
 

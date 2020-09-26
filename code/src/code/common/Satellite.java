@@ -12,7 +12,7 @@ import java.time.LocalTime;
 public class Satellite extends Station {
 
 	/**
-	 * List of time intervals of a satellites
+	 * List of time intervals of satellites
 	 */
 	private List<Interval> timeIntervals; 
 	
@@ -48,6 +48,23 @@ public class Satellite extends Station {
 	public void add(Interval interval) {
 		timeIntervals.add(interval);
 	}
-	
+
+	/**
+	 * Function to detect if the time overlap the start and end time of the satellite
+	 * @param time LocalTime 
+	 * @return true if it overlaps the start and end time. False, otherwise
+	 */
+	public boolean overlap(LocalTime time) {
+		
+		// for each time t in timeIntervals
+		for(Interval t: timeIntervals) {
+			
+			// if the time overlaps the time t, return true
+			if (t.overlap(time))
+				return true;
+		}
+		
+		return false;
+	}
 
 }
