@@ -67,4 +67,14 @@ public class Satellite extends Station {
 		return false;
 	}
 
+	@Override
+	public int hashCode() {
+		return getName().hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return getName().equals( ((Station)obj).getName());
+	}
+	
 }

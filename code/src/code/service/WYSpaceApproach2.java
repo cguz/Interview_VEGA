@@ -1,6 +1,7 @@
 package code.service;
 
 import java.time.LocalTime;
+import java.util.List;
 
 /**
  * @author Cesar Augusto Guzman Alvarez
@@ -10,7 +11,7 @@ import java.time.LocalTime;
 public class WYSpaceApproach2 extends WYSpaceAbstract {
 
 	@Override
-	public LocalTime findPeriod(String file, Integer maxBandwidth) {
+	public  List<LocalTime> findPeriod(String file, Integer maxBandwidth) {
 		return null;
 	}
 

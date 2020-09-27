@@ -60,4 +60,9 @@ public class Interval {
 	public boolean overlap(LocalTime time) {
 		return (start.isBefore(time) || start.equals(time)) && (time.isBefore(end) || time.equals(end));
 	}
+
+	@Override
+	public String toString() {
+		return "[" + start + ", " + end + "]\n";
+	}
 }

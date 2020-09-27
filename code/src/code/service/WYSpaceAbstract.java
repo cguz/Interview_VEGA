@@ -38,13 +38,11 @@ public abstract class WYSpaceAbstract implements WYSpaceI {
 	/**
 	 * List of satellites
 	 */
-	private List<Station> satellites;
+	private List<Station> satellites = new ArrayList<Station>();
 
 	
-	// LocalTime.parse("00:00");
-    // System.out.println(periodTotalDownlinkMaximum);
 	@Override
-	public LocalTime findPeriod(String file, Integer maxBandwidth) {
+	public List<LocalTime> findPeriod(String file, Integer maxBandwidth) {
 
 		fileName = file; 
 		
@@ -77,6 +75,7 @@ public abstract class WYSpaceAbstract implements WYSpaceI {
 		    		
 		            // totalBandwidth+= satellite.getBandwidth()
 		    		totalBandwidth+=satellite.getBandwidth();
+		    		
 		    	}
 		    }
 		    
@@ -88,7 +87,7 @@ public abstract class WYSpaceAbstract implements WYSpaceI {
 		    		periodTotalDownlinkMaximum.clear();
 		        
 		    	// if totalBandwidth >= maxBand :
-		    	if (totalBandwidth <= maxTotalBandwidth) {
+		    	if (totalBandwidth >= maxTotalBandwidth) {
 		            
 		    		// maxBand = totalBandwidth
 		    		maxTotalBandwidth = totalBandwidth;
@@ -97,10 +96,12 @@ public abstract class WYSpaceAbstract implements WYSpaceI {
 		    		periodTotalDownlinkMaximum.add(start);
 		    		
 		    	}
+		    }else {
+		    	((StationGround)stationGround).setSupportBandwidth(false);
 		    }
 		}
 		
-		return null; // periodTotalDownlinkMaximum;
+		return periodTotalDownlinkMaximum;
 		
 	}
 	
@@ -137,10 +138,19 @@ public abstract class WYSpaceAbstract implements WYSpaceI {
 				String[] temp = line.split(DELIMITER);
 				
 				// create the object Satellite
-				Satellite satellite = new Satellite(temp[0], Integer.parseInt(temp[1]));
+				Station satellite = new Satellite(temp[0], Integer.parseInt(temp[1]));
+				
+				// store the satellite in the list of satellites
+				int index = satellites.indexOf(satellite);
+				if(index == -1) {
+					satellites.add(satellite);
+					index = satellites.size()-1;
+				}
+				
+				satellite = satellites.get(index);				
 				
 				// keep the satellite information in the list
-				satellite.add(new Interval(LocalTime.parse(temp[2]), LocalTime.parse(temp[3])));
+				((Satellite)satellite).add(new Interval(LocalTime.parse(temp[2]), LocalTime.parse(temp[3])));
 				
 			}
 

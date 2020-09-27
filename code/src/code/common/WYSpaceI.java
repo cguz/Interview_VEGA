@@ -1,6 +1,7 @@
 package code.common;
 
 import java.time.LocalTime;
+import java.util.List;
 
 /**
  * @author Cesar Augusto Guzman Alvarez
@@ -21,7 +22,7 @@ public interface WYSpaceI {
 	 * @param maxBandwidth
 	 * @return
 	 */
-	public LocalTime findPeriod(String file, Integer maxBandwidth);
+	public  List<LocalTime> findPeriod(String file, Integer maxBandwidth);
 	
 	/**
 	 * Function to check if the ground station has the bandwidth

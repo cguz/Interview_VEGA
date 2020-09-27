@@ -7,9 +7,4 @@ package code.service;
  */
 public class WYSpaceApproach1 extends WYSpaceAbstract {
 
-	@Override
-	public boolean supportBandwidth() {
-		return false;
-	}
-
 }
