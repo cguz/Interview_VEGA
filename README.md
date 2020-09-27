@@ -32,5 +32,5 @@ java -jar wySpace.jar input/2458843pass-schedule.txt 40
 
 ## Known Bugs
 
-[ ] Does not consider at end times "23:30" and "00:00"
+[ ] Does not consider as end times "23:30" and "00:00"
 
