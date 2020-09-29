@@ -22,23 +22,23 @@ import code.common.WYSpaceI;
 public abstract class WYSpaceAbstract implements WYSpaceI {
 	
 	// delimiter of the file
-	private final String DELIMITER = ",";
+	protected final String DELIMITER = ",";
 	
 	
 	/**
 	 * Pass schedule configuration file
 	 */
-	private String fileName;
+	protected String fileName;
 	
 	/**
 	 * Station ground 
 	 */
-	private Station stationGround; 
+	protected Station stationGround; 
 	
 	/**
 	 * List of satellites
 	 */
-	private List<Station> satellites = new ArrayList<Station>();
+	protected List<Station> satellites = new ArrayList<Station>();
 
 	
 	@Override
@@ -121,7 +121,7 @@ public abstract class WYSpaceAbstract implements WYSpaceI {
 	 * 
 	 * @param fileName String name of the file pass schedule
 	 */
-	private void readFile(String fileName) {
+	protected void readFile(String fileName) {
 
 		try {
 			// read the file

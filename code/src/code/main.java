@@ -21,13 +21,12 @@ public class main {
 		try {
 			FILE_NAME = args[0];
 			MAX_BANDWIDTH_GS = Integer.parseInt(args[1]);
-			
 
 			// create the factory WYSpace class 
 			GetWYSpaceFactory spaceFactory = new GetWYSpaceFactory();
 			
 			// Select the approach
-			WYSpaceI space = spaceFactory.getSpace(WYSPACE.APPROACH1_ALMOST_CUADRATIC);
+			WYSpaceI space = spaceFactory.getSpace(WYSPACE.APPROACH2_INTERVAL_TREE);
 			
 			// find the 30 minute period where the total downlink will be at its maximum
 			List<LocalTime> periods = space.findPeriod(FILE_NAME, MAX_BANDWIDTH_GS);
@@ -41,13 +40,11 @@ public class main {
 			else
 				System.out.println("The space ground does not support the total bandwidth");
 			
-	    }
-	    catch (ArrayIndexOutOfBoundsException e){
+	    } catch (ArrayIndexOutOfBoundsException e){
 
 			System.out.println("Please, specific the input parameters as follows:\n");
 			System.out.println("java -jar wySpace.jar PASS_SCHEDULE_FILE [MAX_BANDWIDTH]\n");
-	    }
-	    finally {
+	    } finally {
 
 	    }
 		
