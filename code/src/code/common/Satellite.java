@@ -67,6 +67,26 @@ public class Satellite extends Station {
 		return false;
 	}
 
+	/**
+	 * Function that returns the periods in the pass schedule
+	 * 
+	 * @return List<Interval> period of times
+	 */
+	public List<Interval> getTimeIntervals() {
+		return timeIntervals;
+	}
+	
+	/**
+	 * Function that returns the first period in the pass schedule
+	 * 
+	 * Used only in the Approach 2, thus, we have only one period of time
+	 * 
+	 * @return Interval period of time
+	 */
+	public Interval getFirstTimeInterval() {
+		return timeIntervals.get(0);
+	}
+
 	@Override
 	public int hashCode() {
 		return getName().hashCode();

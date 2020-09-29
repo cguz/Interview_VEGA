@@ -12,21 +12,26 @@ public class IntervalNode {
 	/**
 	 * Information of the period of time
 	 */
-	private Satellite satellite;
+	public Satellite satellite;
 	
 	/**
 	 * Maximum local time by the right
 	 */
-	private LocalTime max;
+	public LocalTime max;
 	
 	/**
 	 * left interval node
 	 */
-	private IntervalNode left;
+	public IntervalNode left;
 	
 	/**
 	 * right interval node
 	 */
-	private IntervalNode right;
+	public IntervalNode right;
+
+	@Override
+	public String toString() {
+		return "[" + satellite.getName() + ", intervals="+satellite.getFirstTimeInterval()+", max=" + max + ", left=" + left + ", right=" + right + "]";
+	}
 	
 }

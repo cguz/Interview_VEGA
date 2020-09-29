@@ -8,8 +8,6 @@ import java.util.Scanner;
 
 import java.time.LocalTime;
 
-import code.common.Interval;
-import code.common.Satellite;
 import code.common.Station;
 import code.common.StationGround;
 import code.common.WYSpaceI;
@@ -22,7 +20,7 @@ import code.common.WYSpaceI;
 public abstract class WYSpaceAbstract implements WYSpaceI {
 	
 	// delimiter of the file
-	protected final String DELIMITER = ",";
+	private final String DELIMITER = ",";
 	
 	
 	/**
@@ -34,11 +32,6 @@ public abstract class WYSpaceAbstract implements WYSpaceI {
 	 * Station ground 
 	 */
 	protected Station stationGround; 
-	
-	/**
-	 * List of satellites
-	 */
-	protected List<Station> satellites = new ArrayList<Station>();
 
 	
 	@Override
@@ -60,24 +53,12 @@ public abstract class WYSpaceAbstract implements WYSpaceI {
 		// for each possible time in the interval
 		// for time 00:00 to 00:00 (24:00) increased by 30:
 		LocalTime end = LocalTime.parse("23:30");
-		for (LocalTime start = LocalTime.parse("00:00");
-			start.isBefore(end); 
-			start = start.plusMinutes(30)) {
+		for (LocalTime time = LocalTime.parse("00:00");
+			time.isBefore(end); 
+			time = time.plusMinutes(30)) {
 		    
 		    // calculate the total bandwidth occupied by the satellites in the given time
-		    int totalBandwidth = 0;
-			
-			// for each satellite in pass schedule:
-		    for (Station satellite : satellites) {
-				
-		    	// if satellite.overlap(time) :
-		    	if (((Satellite)satellite).overlap(start)) {
-		    		
-		            // totalBandwidth+= satellite.getBandwidth()
-		    		totalBandwidth+=satellite.getBandwidth();
-		    		
-		    	}
-		    }
+		    int totalBandwidth = findTotalBandwidth(time);
 		    
 		    // whether the total bandwidth is higher than the support by the ground station
 		    if (totalBandwidth <= stationGround.getBandwidth()) {
@@ -93,7 +74,7 @@ public abstract class WYSpaceAbstract implements WYSpaceI {
 		    		maxTotalBandwidth = totalBandwidth;
 		    		
 		            // periodTotalDownlinkMaximum.add(time);
-		    		periodTotalDownlinkMaximum.add(start);
+		    		periodTotalDownlinkMaximum.add(time);
 		    		
 		    	}
 		    }else {
@@ -105,6 +86,7 @@ public abstract class WYSpaceAbstract implements WYSpaceI {
 		
 	}
 	
+
 	/**
 	 * Function to check if the ground station has the bandwidth
 	 * to support communication
@@ -121,7 +103,7 @@ public abstract class WYSpaceAbstract implements WYSpaceI {
 	 * 
 	 * @param fileName String name of the file pass schedule
 	 */
-	protected void readFile(String fileName) {
+	private void readFile(String fileName) {
 
 		try {
 			// read the file
@@ -137,26 +119,28 @@ public abstract class WYSpaceAbstract implements WYSpaceI {
 				// separate the string 
 				String[] temp = line.split(DELIMITER);
 				
-				// create the object Satellite
-				Station satellite = new Satellite(temp[0], Integer.parseInt(temp[1]));
-				
-				// store the satellite in the list of satellites
-				int index = satellites.indexOf(satellite);
-				if(index == -1) {
-					satellites.add(satellite);
-					index = satellites.size()-1;
-				}
-				
-				satellite = satellites.get(index);				
-				
-				// keep the satellite information in the list
-				((Satellite)satellite).add(new Interval(LocalTime.parse(temp[2]), LocalTime.parse(temp[3])));
-				
+				// store the object Satellite
+				store(temp);
 			}
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Abstract function to find the total bandwidth occupied by the satellites at the given time
+	 * 
+	 * @param time LocalTime to search
+	 * @return total bandwidth occupied by the satellites 
+	 */
+	protected abstract int findTotalBandwidth(LocalTime time);
+
+	/**
+	 * Function abstract to store the object satellite in the list of satellites
+	 * 
+	 * @param temp
+	 */
+	protected abstract void store(String[] temp);
 	
 }

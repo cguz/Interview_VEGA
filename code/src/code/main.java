@@ -14,7 +14,7 @@ public class main {
 	public static String FILE_NAME = "input/2458843pass-schedule.txt";
 	
 	// Maximum BandWidth supports by the ground station
-	public static Integer MAX_BANDWIDTH_GS = 30;
+	public static Integer MAX_BANDWIDTH_GS = 40;
 
 	public static void main(String[] args) {
 		
@@ -47,7 +47,6 @@ public class main {
 	    } finally {
 
 	    }
-		
 	}
 
 }
