@@ -27,11 +27,13 @@ public class GetWYSpaceFactory {
 			 * time intervals during a day, and m is the number of satellites. 
 			 */
 			case APPROACH1_ALMOST_CUADRATIC:
+				System.out.println("\nSelected solution: approach 1.\n");
 				return new WYSpaceApproach1();
 			/**
 			 * Interval tree
 			 */
 			case APPROACH2_INTERVAL_TREE:
+				System.out.println("\nSelected solution: approach 2 - Interval Tree.\n");
 				return new WYSpaceApproach2();
 				
 		}
